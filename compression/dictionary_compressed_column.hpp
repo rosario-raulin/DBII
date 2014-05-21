@@ -7,12 +7,11 @@
 #include <iterator>
 #include <fstream>
 
-/**	This class implements the dictionary encoding idea: We store each value
-	*	just once (and the number of entries that point to this value).
-	*
-	*	_values maps the values to this number while _position tells us where
-	*	(for a given TID) to look in _values.
-	*/
+// This class implements the dictionary encoding idea: We store each value
+// just once (and the number of entries that point to this value).
+//
+// _values maps the values to this number while _position tells us where
+// (for a given TID) to look in _values.
 
 namespace CoGaDB {
 	template <class T>
