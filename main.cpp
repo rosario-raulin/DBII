@@ -17,29 +17,29 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<std::string> > ptr);
 
 int main(){
 	/*create an object of your implemented column, and pass the smart pointer to the unittests*/
-   boost::shared_ptr<Column<int> > col (new Column<int>("int column",INT));
+   boost::shared_ptr<CompressedColumn<int> > col (new DictionaryCompressedColumn<int>("int column",INT));
 	if(!unittest(col)){
-		std::cout << "At least one Unittest Failed!" << std::endl;	
-		return -1;	
+		std::cout << "At least one Unittest Failed!" << std::endl;
+		return -1;
 	}
 	std::cout << "Unitests Passed!" << std::endl;
 
-   boost::shared_ptr<Column<float> > col_float (new Column<float>("float column",FLOAT));
+   boost::shared_ptr<CompressedColumn<float> > col_float (new DictionaryCompressedColumn<float>("float column",FLOAT));
 	if(!unittest(col_float)){
-		std::cout << "At least one Unittest Failed!" << std::endl;	
-		return -1;	
+		std::cout << "At least one Unittest Failed!" << std::endl;
+		return -1;
 	}
 	std::cout << "Unitests Passed!" << std::endl;
 
-   boost::shared_ptr<Column<std::string> > col_string (new Column<std::string>("string column",VARCHAR));
+   boost::shared_ptr<CompressedColumn<std::string> > col_string (new DictionaryCompressedColumn<std::string>("string column",VARCHAR));
 	//boost::shared_ptr<DictionaryCompressedColumn<std::string> > col (new DictionaryCompressedColumn<std::string>("compressed int column",VARCHAR));
 	if(!unittest(col_string)){
-		std::cout << "At least one Unittest Failed!" << std::endl;	
-		return -1;	
+		std::cout << "At least one Unittest Failed!" << std::endl;
+		return -1;
 	}
 	std::cout << "Unitests Passed!" << std::endl;
 
-	
+
 
 //	/****** BULK UPDATE TEST ******/
 //	{
@@ -49,12 +49,12 @@ int main(){
 //		//boost::shared_ptr<DictionaryCompressedColumn<int> > compressed_col (new DictionaryCompressedColumn<int>("compressed int column",INT));
 
 
-//		uncompressed_col->insert(reference_data.begin(),reference_data.end()); 
-//		compressed_col->insert(reference_data.begin(),reference_data.end()); 
+//		uncompressed_col->insert(reference_data.begin(),reference_data.end());
+//		compressed_col->insert(reference_data.begin(),reference_data.end());
 
 //		bool result = *(boost::static_pointer_cast<ColumnBaseTyped<int> >(uncompressed_col))==*(boost::static_pointer_cast<ColumnBaseTyped<int> >(compressed_col));
-//		if(!result){ 
-//			std::cerr << std::endl << "operator== TEST FAILED!" << std::endl;	
+//		if(!result){
+//			std::cerr << std::endl << "operator== TEST FAILED!" << std::endl;
 //			return false;
 //		}
 //		PositionListPtr tids (new PositionList());
@@ -62,16 +62,16 @@ int main(){
 //	   for(unsigned int i=0;i<10;i++){
 //	 		tids->push_back(rand()%uncompressed_col->size());
 //	   }
-//		
-//		uncompressed_col->update(tids,new_value); 
-//		compressed_col->update(tids,new_value); 
+//
+//		uncompressed_col->update(tids,new_value);
+//		compressed_col->update(tids,new_value);
 
 //		result = *(boost::static_pointer_cast<ColumnBaseTyped<int> >(uncompressed_col))==*(boost::static_pointer_cast<ColumnBaseTyped<int> >(compressed_col));
 //		if(!result){
-//			 std::cerr << std::endl << "BULK UPDATE TEST FAILED!" << std::endl;	
-//			 return false;	
+//			 std::cerr << std::endl << "BULK UPDATE TEST FAILED!" << std::endl;
+//			 return false;
 //		}
-//		std::cout << "SUCCESS"<< std::endl;	
+//		std::cout << "SUCCESS"<< std::endl;
 
 //	}
 
@@ -83,12 +83,12 @@ int main(){
 
 //		//boost::shared_ptr<DictionaryCompressedColumn<int> > compressed_col (new DictionaryCompressedColumn<int>("compressed int column",INT));
 
-//		uncompressed_col->insert(reference_data.begin(),reference_data.end()); 
-//		compressed_col->insert(reference_data.begin(),reference_data.end()); 
+//		uncompressed_col->insert(reference_data.begin(),reference_data.end());
+//		compressed_col->insert(reference_data.begin(),reference_data.end());
 
 //		bool result = *(boost::static_pointer_cast<ColumnBaseTyped<int> >(uncompressed_col))==*(boost::static_pointer_cast<ColumnBaseTyped<int> >(compressed_col));
-//		if(!result){ 
-//			std::cerr << std::endl << "operator== TEST FAILED!" << std::endl;	
+//		if(!result){
+//			std::cerr << std::endl << "operator== TEST FAILED!" << std::endl;
 //			return false;
 //		}
 
@@ -97,21 +97,19 @@ int main(){
 //	   for(unsigned int i=0;i<10;i++){
 //	 		tids->push_back(rand()%uncompressed_col->size());
 //	   }
-//		
-//		uncompressed_col->remove(tids); 
-//		compressed_col->remove(tids); 
+//
+//		uncompressed_col->remove(tids);
+//		compressed_col->remove(tids);
 
 //		result = *(boost::static_pointer_cast<ColumnBaseTyped<int> >(uncompressed_col))==*(boost::static_pointer_cast<ColumnBaseTyped<int> >(compressed_col));
 //		if(!result){
-//			 std::cerr << "BULK DELETE TEST FAILED!" << std::endl;	
-//			 return false;	
+//			 std::cerr << "BULK DELETE TEST FAILED!" << std::endl;
+//			 return false;
 //		}
-//		std::cout << "SUCCESS"<< std::endl;	
+//		std::cout << "SUCCESS"<< std::endl;
 
 //	}
 
 
  return 0;
 }
-
-

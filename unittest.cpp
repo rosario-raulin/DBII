@@ -20,14 +20,16 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<int> > col){
    }
 
 	/****** BASIC INSERT TEST ******/
-	std::cout << "BASIC INSERT TEST: Filling column with data..."; // << std::endl;	
-	//col->insert(reference_data.begin(),reference_data.end());  
+	std::cout << "BASIC INSERT TEST: Filling column with data..."; // << std::endl;
+	//col->insert(reference_data.begin(),reference_data.end());
    for(unsigned int i=0;i<reference_data.size();i++){
 		col->insert(reference_data[i]);
-   }	
+   }
 
-	if(reference_data.size()!=col->size()){ 
+	if(reference_data.size()!=col->size()){
 		std::cout << "Fatal Error! In Unittest: invalid data size" << std::endl;
+		std::cout << "expected: " << reference_data.size() << std::endl;
+		std::cout << "got: " << col->size() << std::endl;
 		return false;
 	}
 
@@ -35,12 +37,12 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<int> > col){
 		int col_value = (*col)[i];
 		if(reference_data[i]!= col_value){
 			std::cout << "Fatal Error! In Unittest: read invalid data" << std::endl;
-			std::cout << "Column: '" << col->getName() 
-						 << "' TID: '"<< i 
-						 << "' Expected Value: '" << reference_data[i] 
-						 << "' Actual Value: '" << (*col)[i] << "'" 
-						 << std::endl;		
-			std::cerr << "BASIC INSERT TEST FAILED!" << std::endl;	
+			std::cout << "Column: '" << col->getName()
+						 << "' TID: '"<< i
+						 << "' Expected Value: '" << reference_data[i]
+						 << "' Actual Value: '" << (*col)[i] << "'"
+						 << std::endl;
+			std::cerr << "BASIC INSERT TEST FAILED!" << std::endl;
 			return false;
 		}
   }
@@ -49,18 +51,18 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<int> > col){
 	std::cout << "VIRTUAL COPY CONSTRUCTOR TEST...";
 
 	//boost::shared_ptr<DictionaryCompressedColumn<int> > compressed_col (new DictionaryCompressedColumn<int>("compressed int column",INT));
-	//compressed_col->insert(reference_data.begin(),reference_data.end()); 
- 
+	//compressed_col->insert(reference_data.begin(),reference_data.end());
+
 	ColumnPtr copy=col->copy();
-		if(!copy){ 
-			std::cerr << std::endl << "VIRTUAL COPY CONSTRUCTOR TEST FAILED!" << std::endl;	
+		if(!copy){
+			std::cerr << std::endl << "VIRTUAL COPY CONSTRUCTOR TEST FAILED!" << std::endl;
 			return false;
-		}	
+		}
 		bool result = *(boost::static_pointer_cast<ColumnBaseTyped<int> >(copy))==*(boost::static_pointer_cast<ColumnBaseTyped<int> >(col));
-		if(!result){ 
-			std::cerr << std::endl << "VIRTUAL COPY CONSTRUCTOR TEST FAILED!" << std::endl;	
+		if(!result){
+			std::cerr << std::endl << "VIRTUAL COPY CONSTRUCTOR TEST FAILED!" << std::endl;
 			return false;
-		}	
+		}
 	std::cout << "SUCCESS"<< std::endl;
 	/****** UPDATE TEST ******/
 	TID tid=rand()%100;
@@ -75,12 +77,12 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<int> > col){
 		int col_value = (*col)[i];
 		if(reference_data[i]!= col_value){
 			std::cout << "Fatal Error! In Unittest: read invalid data" << std::endl;
-			std::cout << "Column: '" << col->getName() 
-						 << "' TID: '"<< i 
-						 << "' Expected Value: '" << reference_data[i] 
-						 << "' Actual Value: '" << (*col)[i] << "'" 
-						 << std::endl;		
-			std::cerr << "UPDATE TEST FAILED!" << std::endl;	
+			std::cout << "Column: '" << col->getName()
+						 << "' TID: '"<< i
+						 << "' Expected Value: '" << reference_data[i]
+						 << "' Actual Value: '" << (*col)[i] << "'"
+						 << std::endl;
+			std::cerr << "UPDATE TEST FAILED!" << std::endl;
 			return false;
 		}
   }
@@ -99,12 +101,12 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<int> > col){
 		int col_value = (*col)[i];
 		if(reference_data[i]!= col_value){
 			std::cout << "Fatal Error! In Unittest: read invalid data" << std::endl;
-			std::cout << "Column: '" << col->getName() 
-						 << "' TID: '"<< i 
-						 << "' Expected Value: '" << reference_data[i] 
-						 << "' Actual Value: '" << (*col)[i] << "'" 
-						 << std::endl;		
-			std::cerr << "DELETE TEST FAILED!" << std::endl;	
+			std::cout << "Column: '" << col->getName()
+						 << "' TID: '"<< i
+						 << "' Expected Value: '" << reference_data[i]
+						 << "' Actual Value: '" << (*col)[i] << "'"
+						 << std::endl;
+			std::cerr << "DELETE TEST FAILED!" << std::endl;
 			return false;
 		}
   }
@@ -128,19 +130,19 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<int> > col){
 		int col_value = (*col)[i];
 		if(reference_data[i]!= col_value){
 			std::cout << "Fatal Error! In Unittest: read invalid data" << std::endl;
-			std::cout << "Column: '" << col->getName() 
-						 << "' TID: '"<< i 
-						 << "' Expected Value: '" << reference_data[i] 
-						 << "' Actual Value: '" << (*col)[i] << "'" 
-						 << std::endl;		
-			std::cerr << "STORE AND LOAD TEST FAILED!" << std::endl;	
+			std::cout << "Column: '" << col->getName()
+						 << "' TID: '"<< i
+						 << "' Expected Value: '" << reference_data[i]
+						 << "' Actual Value: '" << (*col)[i] << "'"
+						 << std::endl;
+			std::cerr << "STORE AND LOAD TEST FAILED!" << std::endl;
 			return false;
 		}
   }
 	std::cout << "SUCCESS"<< std::endl;
   }
 
-	
+
 
   return true;
 }
@@ -159,13 +161,13 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<float> > col){
 //	}
 
 	/****** BASIC INSERT TEST ******/
-	std::cout << "BASIC INSERT TEST: Filling column with data..."; // << std::endl;	
-	//col->insert(reference_data.begin(),reference_data.end());  
+	std::cout << "BASIC INSERT TEST: Filling column with data..."; // << std::endl;
+	//col->insert(reference_data.begin(),reference_data.end());
    for(unsigned int i=0;i<reference_data.size();i++){
 		col->insert(reference_data[i]);
-   }	
+   }
 	//col->print();
-	if(reference_data.size()!=col->size()){ 
+	if(reference_data.size()!=col->size()){
 		std::cout << "Fatal Error! In Unittest: invalid data size" << std::endl;
 		return false;
 	}
@@ -174,12 +176,12 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<float> > col){
 		float col_value = (*col)[i];
 		if(reference_data[i]!= col_value){
 			std::cout << "Fatal Error! In Unittest: read invalid data" << std::endl;
-			std::cout << "Column: '" << col->getName() 
-						 << "' TID: '"<< i 
-						 << "' Expected Value: '" << reference_data[i] 
-						 << "' Actual Value: '" << (*col)[i] << "'" 
-						 << std::endl;		
-			std::cerr << "BASIC INSERT TEST FAILED!" << std::endl;	
+			std::cout << "Column: '" << col->getName()
+						 << "' TID: '"<< i
+						 << "' Expected Value: '" << reference_data[i]
+						 << "' Actual Value: '" << (*col)[i] << "'"
+						 << std::endl;
+			std::cerr << "BASIC INSERT TEST FAILED!" << std::endl;
 			return false;
 		}
   }
@@ -188,18 +190,18 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<float> > col){
 	std::cout << "VIRTUAL COPY CONSTRUCTOR TEST...";
 
 	//boost::shared_ptr<DictionaryCompressedColumn<float> > compressed_col (new DictionaryCompressedColumn<float>("compressed int column",FLOAT));
-	//compressed_col->insert(reference_data.begin(),reference_data.end()); 
- 
+	//compressed_col->insert(reference_data.begin(),reference_data.end());
+
 	ColumnPtr copy=col->copy();
-		if(!copy){ 
-			std::cerr << std::endl << "VIRTUAL COPY CONSTRUCTOR TEST FAILED!" << std::endl;	
+		if(!copy){
+			std::cerr << std::endl << "VIRTUAL COPY CONSTRUCTOR TEST FAILED!" << std::endl;
 			return false;
-		}	
+		}
 		bool result = *(boost::static_pointer_cast<ColumnBaseTyped<float> >(copy))==*(boost::static_pointer_cast<ColumnBaseTyped<float> >(col));
-		if(!result){ 
-			std::cerr << std::endl << "VIRTUAL COPY CONSTRUCTOR TEST FAILED!" << std::endl;	
+		if(!result){
+			std::cerr << std::endl << "VIRTUAL COPY CONSTRUCTOR TEST FAILED!" << std::endl;
 			return false;
-		}	
+		}
 	std::cout << "SUCCESS"<< std::endl;
 	/****** UPDATE TEST ******/
 	TID tid=rand()%100;
@@ -214,12 +216,12 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<float> > col){
 		float col_value = (*col)[i];
 		if(reference_data[i]!= col_value){
 			std::cout << "Fatal Error! In Unittest: read invalid data" << std::endl;
-			std::cout << "Column: '" << col->getName() 
-						 << "' TID: '"<< i 
-						 << "' Expected Value: '" << reference_data[i] 
-						 << "' Actual Value: '" << (*col)[i] << "'" 
-						 << std::endl;		
-			std::cerr << "UPDATE TEST FAILED!" << std::endl;	
+			std::cout << "Column: '" << col->getName()
+						 << "' TID: '"<< i
+						 << "' Expected Value: '" << reference_data[i]
+						 << "' Actual Value: '" << (*col)[i] << "'"
+						 << std::endl;
+			std::cerr << "UPDATE TEST FAILED!" << std::endl;
 			return false;
 		}
   }
@@ -238,12 +240,12 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<float> > col){
 		float col_value = (*col)[i];
 		if(reference_data[i]!= col_value){
 			std::cout << "Fatal Error! In Unittest: read invalid data" << std::endl;
-			std::cout << "Column: '" << col->getName() 
-						 << "' TID: '"<< i 
-						 << "' Expected Value: '" << reference_data[i] 
-						 << "' Actual Value: '" << (*col)[i] << "'" 
-						 << std::endl;		
-			std::cerr << "DELETE TEST FAILED!" << std::endl;	
+			std::cout << "Column: '" << col->getName()
+						 << "' TID: '"<< i
+						 << "' Expected Value: '" << reference_data[i]
+						 << "' Actual Value: '" << (*col)[i] << "'"
+						 << std::endl;
+			std::cerr << "DELETE TEST FAILED!" << std::endl;
 			return false;
 		}
   }
@@ -267,19 +269,19 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<float> > col){
 		float col_value = (*col)[i];
 		if(reference_data[i]!= col_value){
 			std::cout << "Fatal Error! In Unittest: read invalid data" << std::endl;
-			std::cout << "Column: '" << col->getName() 
-						 << "' TID: '"<< i 
-						 << "' Expected Value: '" << reference_data[i] 
-						 << "' Actual Value: '" << (*col)[i] << "'" 
-						 << std::endl;		
-			std::cerr << "STORE AND LOAD TEST FAILED!" << std::endl;	
+			std::cout << "Column: '" << col->getName()
+						 << "' TID: '"<< i
+						 << "' Expected Value: '" << reference_data[i]
+						 << "' Actual Value: '" << (*col)[i] << "'"
+						 << std::endl;
+			std::cerr << "STORE AND LOAD TEST FAILED!" << std::endl;
 			return false;
 		}
   }
 	std::cout << "SUCCESS"<< std::endl;
   }
 
-	
+
 
   return true;
 }
@@ -324,13 +326,13 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<std::string> > col){
 //	}
 
 	/****** BASIC INSERT TEST ******/
-	std::cout << "BASIC INSERT TEST: Filling column with data..."; // << std::endl;	
-	//col->insert(reference_data.begin(),reference_data.end());  
+	std::cout << "BASIC INSERT TEST: Filling column with data..."; // << std::endl;
+	//col->insert(reference_data.begin(),reference_data.end());
    for(unsigned int i=0;i<reference_data.size();i++){
 		col->insert(reference_data[i]);
-   }	
+   }
 	//col->print();
-	if(reference_data.size()!=col->size()){ 
+	if(reference_data.size()!=col->size()){
 		std::cout << "Fatal Error! In Unittest: invalid data size" << std::endl;
 		return false;
 	}
@@ -339,12 +341,12 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<std::string> > col){
 		std::string col_value = (*col)[i];
 		if(reference_data[i]!= col_value){
 			std::cout << "Fatal Error! In Unittest: read invalid data" << std::endl;
-			std::cout << "Column: '" << col->getName() 
-						 << "' TID: '"<< i 
-						 << "' Expected Value: '" << reference_data[i] 
-						 << "' Actual Value: '" << (*col)[i] << "'" 
-						 << std::endl;		
-			std::cerr << "BASIC INSERT TEST FAILED!" << std::endl;	
+			std::cout << "Column: '" << col->getName()
+						 << "' TID: '"<< i
+						 << "' Expected Value: '" << reference_data[i]
+						 << "' Actual Value: '" << (*col)[i] << "'"
+						 << std::endl;
+			std::cerr << "BASIC INSERT TEST FAILED!" << std::endl;
 			return false;
 		}
   }
@@ -353,18 +355,18 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<std::string> > col){
 	std::cout << "VIRTUAL COPY CONSTRUCTOR TEST...";
 
 	//boost::shared_ptr<DictionaryCompressedColumn<std::string> > compressed_col (new DictionaryCompressedColumn<std::string>("compressed int column",FLOAT));
-	//compressed_col->insert(reference_data.begin(),reference_data.end()); 
- 
+	//compressed_col->insert(reference_data.begin(),reference_data.end());
+
 	ColumnPtr copy=col->copy();
-		if(!copy){ 
-			std::cerr << std::endl << "VIRTUAL COPY CONSTRUCTOR TEST FAILED!" << std::endl;	
+		if(!copy){
+			std::cerr << std::endl << "VIRTUAL COPY CONSTRUCTOR TEST FAILED!" << std::endl;
 			return false;
-		}	
+		}
 		bool result = *(boost::static_pointer_cast<ColumnBaseTyped<std::string> >(copy))==*(boost::static_pointer_cast<ColumnBaseTyped<std::string> >(col));
-		if(!result){ 
-			std::cerr << std::endl << "VIRTUAL COPY CONSTRUCTOR TEST FAILED!" << std::endl;	
+		if(!result){
+			std::cerr << std::endl << "VIRTUAL COPY CONSTRUCTOR TEST FAILED!" << std::endl;
 			return false;
-		}	
+		}
 	std::cout << "SUCCESS"<< std::endl;
 	/****** UPDATE TEST ******/
 	TID tid=rand()%100;
@@ -379,12 +381,12 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<std::string> > col){
 		std::string col_value = (*col)[i];
 		if(reference_data[i]!= col_value){
 			std::cout << "Fatal Error! In Unittest: read invalid data" << std::endl;
-			std::cout << "Column: '" << col->getName() 
-						 << "' TID: '"<< i 
-						 << "' Expected Value: '" << reference_data[i] 
-						 << "' Actual Value: '" << (*col)[i] << "'" 
-						 << std::endl;		
-			std::cerr << "UPDATE TEST FAILED!" << std::endl;	
+			std::cout << "Column: '" << col->getName()
+						 << "' TID: '"<< i
+						 << "' Expected Value: '" << reference_data[i]
+						 << "' Actual Value: '" << (*col)[i] << "'"
+						 << std::endl;
+			std::cerr << "UPDATE TEST FAILED!" << std::endl;
 			return false;
 		}
   }
@@ -403,12 +405,12 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<std::string> > col){
 		std::string col_value = (*col)[i];
 		if(reference_data[i]!= col_value){
 			std::cout << "Fatal Error! In Unittest: read invalid data" << std::endl;
-			std::cout << "Column: '" << col->getName() 
-						 << "' TID: '"<< i 
-						 << "' Expected Value: '" << reference_data[i] 
-						 << "' Actual Value: '" << (*col)[i] << "'" 
-						 << std::endl;		
-			std::cerr << "DELETE TEST FAILED!" << std::endl;	
+			std::cout << "Column: '" << col->getName()
+						 << "' TID: '"<< i
+						 << "' Expected Value: '" << reference_data[i]
+						 << "' Actual Value: '" << (*col)[i] << "'"
+						 << std::endl;
+			std::cerr << "DELETE TEST FAILED!" << std::endl;
 			return false;
 		}
   }
@@ -432,21 +434,19 @@ bool unittest(boost::shared_ptr<ColumnBaseTyped<std::string> > col){
 		std::string col_value = (*col)[i];
 		if(reference_data[i]!= col_value){
 			std::cout << "Fatal Error! In Unittest: read invalid data" << std::endl;
-			std::cout << "Column: '" << col->getName() 
-						 << "' TID: '"<< i 
-						 << "' Expected Value: '" << reference_data[i] 
-						 << "' Actual Value: '" << (*col)[i] << "'" 
-						 << std::endl;		
-			std::cerr << "STORE AND LOAD TEST FAILED!" << std::endl;	
+			std::cout << "Column: '" << col->getName()
+						 << "' TID: '"<< i
+						 << "' Expected Value: '" << reference_data[i]
+						 << "' Actual Value: '" << (*col)[i] << "'"
+						 << std::endl;
+			std::cerr << "STORE AND LOAD TEST FAILED!" << std::endl;
 			return false;
 		}
   }
 	std::cout << "SUCCESS"<< std::endl;
   }
 
-	
+
 
   return true;
 }
-
-
